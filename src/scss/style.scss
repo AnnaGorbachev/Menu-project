@@ -52,80 +52,112 @@ body {
 }
 
 .header__logo img {
-  max-width: 100%;
-  display: block;
+  max-width: 100%;//чт картинка адаптир-сь
+  display: block;//лхк-чт картинка была без обрезок
 }
 
 .header__burger {
-  display: none;
+  display: none;//скрываем бургер для больших разрешений
 }
 
-.header__menu {}
+.header__list {
+    display: flex;
+    position: relative;
+    z-index: 2;//чт меню было видно при больш р-ре
+}
 
-@media (max-width:767px) {
+.header__list li {
+    margin: 0px 0px 0px 20px;
+}
+
+.header__link {
+    color: beige;
+    text-transform: uppercase;
+    font-size: 18px;
+}
+
+
+@media (max-width:767px) { 
+  body.lock {
+    overflow: hidden;//чт блокир-ть прокрутку контента под меню
+  }
   .header__body {
     height: 50px;
   }
   .header__logo {
-    flex: 0 0 40px;
+    flex: 0 0 40px;//умен-ем р-р logo 
     }
   .header__burger {
-    display: block;
+    display: block;//показываем бургер для маленьких разршений
     position: relative;
     width: 30px;
     height: 20px;
     position: relative;
       z-index: 3;
   }
-    .header__burger span {
-      position: absolute;
-      background-color: beige;
-      position: absolute;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      top: 9px;
-    }
-    .header__burger::before,
-    .header__burger::after {
-      content: '';
-      background-color: beige;
-      position: absolute;
-      width: 100%;
-      height: 2px;
-      left: 0;
-        }
-    .header__burger::before {
-      top: 0;
-                }
-    .header__burger::after {
-      bottom: 0;
-        }
-    .header__menu {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgb(112, 209, 196);
+  .header__burger span {  //средняя полоса бургера
+    position: absolute;
+    background-color: beige;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    top: 9px;
+    transition: all 0.3s ease 0s;//плавность крестика
+  }
+  .header__burger::before,
+  .header__burger::after {  //полосы бургера
+    content: '';
+    background-color: beige;
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    left: 0;
+    transition: all 0.3s ease 0s;
       }
+  .header__burger::before {
+    top: 0;
+              }
+  .header__burger::after {
+    bottom: 0;
+      }
+  .header__burger.active:before {
+    transform: rotate(45deg);//разворачиваем линию
+    top: 9px;
+  }
+  .header__burger.active:after {
+    transform: rotate(-45deg);
+    bottom: 9px;
+  }
+  .header__burger.active span {
+    transform: scale(0);//убираем среднюю пал
+  }
+  .header__menu {
+    position: fixed;
+    top: -100%;//чт изначально меню не было видно
+    right: 0;
+    // width: 100%;
+    // height: 100%;
+    overflow: auto;//-чт был скролл при развороте телефона
+    transition: all 0.3s ease 0s;//чт меню выезжало плавно
+    background-color: rgb(112, 209, 196);
+    padding: 70px 0px 0px 0px;
+    }
+  .header__menu.active {
+    top: 0;//чт при нажатии меню появилось
+  }
+  .header__list {
+      display: block;//отключаем d-flex
+        }
+  .header__list li {
+      margin: 0px 10px 20px 10px;
+  }
+  .header__link {
+    font-style: 24px;
+  }
 }
 
-.header__list {
-  display: flex;
-  position: relative;
-  z-index: 2;
-}
 
-.header__list li {
-  margin: 0px 0px 0px 20px;
-}
-
-.header__link {
-  color: beige;
-  text-transform: uppercase;
-  font-size: 18px;
-}
 
 .content {
   padding: 100px 0px 0px 0px;
@@ -138,4 +170,10 @@ body {
 
 .content__text p {
   margin: 0px 0px 20px 0px;
+}
+
+@media (max-width:767px) {
+  .content {
+    padding: 60px 0px 0px 0px;//подвинет контент при мален
+  }
 }
